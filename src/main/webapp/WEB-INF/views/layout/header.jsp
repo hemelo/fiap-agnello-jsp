@@ -6,10 +6,7 @@
     <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
         <!-- LOGO + NOME -->
-        <a href="${pageContext.request.contextPath}/home" class="flex items-center gap-2">
-            <img src="${pageContext.request.contextPath}/img/logo.svg" alt="Logo" class="h-10" />
-            <span class="hidden md:inline text-lg font-semibold text-[#581c36]">Vinheria Agnello</span>
-        </a>
+        <jsp:include page="logo.jsp" />
 
         <!-- BOTÃO HAMBURGUER (MOBILE) -->
         <button id="menu-toggle" class="md:hidden text-[#581c36] focus:outline-none">

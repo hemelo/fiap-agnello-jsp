@@ -6,9 +6,7 @@
 <div class="bg-gray-50 min-h-screen flex flex-col justify-between">
     <!-- Header -->
     <header class="bg-gray-200  text-white py-2 px-6 flex items-center justify-between">
-        <div class="flex items-center space-x-2">
-            <img src="${pageContext.request.contextPath}/img/logo.svg" alt="Logo Vinheria" class="h-10" />
-        </div>
+        <jsp:include page="layout/logo.jsp" />
     </header>
 
     <main class="flex-grow flex flex-col items-center py-12 px-4">

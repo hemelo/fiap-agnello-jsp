@@ -7,10 +7,10 @@
             ASSINE O MELHOR <span class="text-red-600">CLUBE DE VINHOS</span> DO BRASIL!
         </h2>
         <p class="text-xl">
-            PLANOS <span class="text-red-600">A PARTIR DE
+            PLANOS <span class="text-red-600">A PARTIR DE R$
 
-            <c:if test="${not empty planoMaisBarato}">${planoMaisBarato.precoMensal}</c:if>
-            <c:if test="${empty planoMaisBarato}">R$ 70,00</c:if>
+            <c:if test="${not empty planoMaisBarato}">${String.format("%.2f", planoMaisBarato.precoMensal)}</c:if>
+            <c:if test="${empty planoMaisBarato}">70,00</c:if>
 
             POR MÊS</span> E BENEFÍCIOS EXCLUSIVOS.
         </p>

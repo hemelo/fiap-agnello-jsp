@@ -7,6 +7,9 @@ import com.fiap.agnello.repository.ProdutoRepository;
 import com.fiap.agnello.utils.PaisesUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,7 +45,7 @@ public class ProdutoService {
                 .toList();
     }
 
-    public List<PaisDto> getPaisesComProdutos() {
+    public List<PaisDto> buscarPaisesDtoComProduto() {
 
         List<String> paises = produtoRepository.findPaises();
 
@@ -75,5 +78,53 @@ public class ProdutoService {
 
     public Optional<Produto> buscarPorId(Long id) {
         return produtoRepository.findById(id);
+    }
+
+    public List<String> buscarClassificacoes() {
+        List<String> classificacoes = produtoRepository.findDistinctClassificacoes();
+
+        if (classificacoes.isEmpty()) {
+            throw new EmptyResultDataAccessException(1);
+        }
+
+        return classificacoes;
+    }
+
+    public List<String> buscarTeores() {
+        List<String> teores =  produtoRepository.findDistinctTeores();
+
+        if (teores.isEmpty()) {
+            throw new EmptyResultDataAccessException(1);
+        }
+
+        return teores;
+    }
+
+    public List<String> buscarPaises() {
+        List<String> paises =  produtoRepository.findDistinctPaises();
+
+        if (paises.isEmpty()) {
+            throw new EmptyResultDataAccessException(1);
+        }
+
+        return paises;
+    }
+
+    public List<String> buscarVinicolas() {
+        List<String> vinicolas =  produtoRepository.findDistinctVinicolas();
+
+        if (vinicolas.isEmpty()) {
+            throw new EmptyResultDataAccessException(1);
+        }
+
+        return vinicolas;
+    }
+
+    public Page<Produto> filtrarProdutos(Specification<Produto> and, Pageable pageable) {
+        if (and == null) {
+            return produtoRepository.findAll(pageable);
+        } else {
+            return produtoRepository.findAll(and, pageable);
+        }
     }
 }

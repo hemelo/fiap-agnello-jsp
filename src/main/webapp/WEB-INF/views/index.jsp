@@ -46,7 +46,7 @@
                         <h2 class="text-2xl font-semibold mb-2">${destaque.nome}</h2>
                         <p class="text-gray-600 mb-4">${destaque.descricao}</p>
                         <div class="text-sm text-gray-700 space-y-1">
-                            <p><strong>Uva:</strong> ${destaque.tipo}</p>
+                            <p><strong>Tipo:</strong> ${destaque.tipo}</p>
                             <p><strong>País & Região:</strong> ${destaque.pais}</p>
                             <p><strong>Classificação:</strong> ${destaque.classificacao}</p>
                             <p><strong>Vinícola:</strong> ${destaque.vinicola}</p>
@@ -92,7 +92,7 @@
                             <h4 class="text-sm font-semibold mb-1">${p.nome}</h4>
                             <p class="text-sm text-gray-500 mb-1">${p.pais} • ${p.tipo}</p>
                             <p class="text-lg font-bold mb-2">R$${p.preco}</p>
-                            <a href="${pageContext.request.contextPath}/produto/${p.id}" class="bg-[#581c36] text-white px-4 py-1 rounded-md text-sm hover:bg-[#45122a]">Comprar agora</a>
+                            <a href="${pageContext.request.contextPath}/produto/${p.id}" class="w-full text-sm bg-red-900 text-white py-2 px-4 rounded hover:bg-red-800 transition">Comprar agora</a>
                         </div>
                     </c:forEach>
                 </div>

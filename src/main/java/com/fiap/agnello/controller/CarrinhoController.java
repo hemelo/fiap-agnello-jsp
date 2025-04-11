@@ -79,6 +79,9 @@ public class CarrinhoController {
             mv.addObject("cupomAplicado", cupomAplicado);
         } else {
             mv.addObject("erro", "Seu carrinho está vazio.");
+            mv.addObject("subtotal", 0.0);
+            mv.addObject("desconto", 0.0);
+            mv.addObject("total", 0.0);
         }
 
         try {

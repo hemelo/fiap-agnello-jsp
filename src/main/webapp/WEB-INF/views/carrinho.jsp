@@ -35,10 +35,10 @@
                         <h3 class="text-lg font-semibold">${item.produto.nome}</h3>
                         <p class="text-sm text-gray-700 font-medium mt-2">R$ ${item.produto.preco}</p>
                         <p class="text-sm text-gray-600 mt-3 leading-relaxed">
-                            Tipo: ${item.produto.tipo} <br/>
-                            País: ${item.produto.pais} <br/>
-                            Origem: ${item.produto.origem} <br/>
-                            Uvas: ${item.produto.uvas}
+                            <b>Tipo:</b> ${item.produto.tipo} <br/>
+                            <b>País:</b> ${item.produto.pais} <br/>
+                            <b>Vinícola:</b> ${item.produto.vinicola} <br/>
+                            <b>Teor Alcóolico:</b> ${item.produto.teorAlcoolico} <br/>
                         </p>
 
                         <div class="flex items-center mt-4 gap-3">
@@ -72,7 +72,7 @@
             <h3 class="text-lg font-semibold mb-4">Resumo</h3>
             <div class="flex justify-between mb-2">
                 <span>Subtotal</span>
-                <span>R$ ${subtotal}</span>
+                <span>R$ ${String.format("%.2f", subtotal)}</span>
             </div>
             <form method="get" action="${pageContext.request.contextPath}/carrinho" class="mb-2">
                 <label class="block text-sm mb-1">Cupom de Desconto</label>
@@ -83,7 +83,7 @@
             <c:if test="${not empty cupomAplicado}">
                 <div class="flex justify-between mb-2 text-green-700 font-medium">
                     <span>Desconto (${cupomAplicado.percentual}%)</span>
-                    <span>- R$ ${desconto}</span>
+                    <span>- R$ ${String.format("%.2f", desconto)}</span>
                 </div>
             </c:if>
             <div class="flex justify-between mb-2">
@@ -93,7 +93,7 @@
             <div class="border-t pt-4 mt-4">
                 <div class="flex justify-between font-semibold text-lg">
                     <span>Total</span>
-                    <span>R$ ${total}</span>
+                    <span>R$ ${String.format("%.2f", total)}</span>
                 </div>
                 <c:if test="${not empty total}">
                     <div class="mt-2">
@@ -137,7 +137,7 @@
 
         const valorParcela = total / parcelas;
 
-        document.getElementById('parcelado').textContent = parcelas + "x de R$ " + valorParcela.toFixed(2).replace('.', ',') + " sem juros";
+        document.getElementById('parcelado').textContent = parcelas + "x de R$ " + valorParcela.toFixed(2) + " sem juros";
     }
 
     // Inicializar ao carregar

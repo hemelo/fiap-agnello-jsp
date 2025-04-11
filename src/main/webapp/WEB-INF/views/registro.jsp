@@ -7,7 +7,7 @@
     <!-- Header -->
     <header class="bg-gray-200  text-white py-2 px-6 flex items-center justify-between">
         <div class="flex items-center space-x-2">
-            <img src="${pageContext.request.contextPath}/img/logo.svg" alt="Logo Vinheria" class="h-10" />
+            <jsp:include page="layout/logo.jsp" />
         </div>
     </header>
 

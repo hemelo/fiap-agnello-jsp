@@ -31,7 +31,7 @@ public class HomeController {
         }
 
         try {
-            model.addAttribute("paises", produtoService.getPaisesComProdutos());
+            model.addAttribute("paises", produtoService.buscarPaisesDtoComProduto());
         } catch (EmptyResultDataAccessException e) {
             log.debug("Paises não encontrados");
         }
