@@ -43,11 +43,11 @@ public class CarrinhoController {
         ModelAndView mv = new ModelAndView("views/carrinho");
 
         List<Map<String, Object>> itensDetalhados = carrinho.getItens().stream().map(item -> {
-            Produto produto = produtoRepository.findById(item.produtoId())
+            Produto produto = produtoRepository.findById(item.getProdutoId())
                     .orElseThrow(() -> new EntityNotFoundException("Produto não encontrado"));
             Map<String, Object> map = new HashMap<>();
             map.put("produto", produto);
-            map.put("quantidade", item.quantidade());
+            map.put("quantidade", item.getQuantidade());
             return map;
         }).toList();
 

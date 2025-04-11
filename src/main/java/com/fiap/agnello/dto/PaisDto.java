@@ -1,3 +1,13 @@
 package com.fiap.agnello.dto;
 
-public record PaisDto(String nome, String bandeiraUrl) {}
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+public class PaisDto {
+    private String nome;
+    private String bandeiraUrl;
+}

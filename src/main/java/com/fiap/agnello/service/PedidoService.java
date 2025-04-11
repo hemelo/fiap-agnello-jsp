@@ -39,12 +39,12 @@ public class PedidoService {
         double total = 0;
 
         for (ItemPedidoDto itemDTO : itensDTO) {
-            Produto produto = produtoRepository.findById(itemDTO.produtoId())
+            Produto produto = produtoRepository.findById(itemDTO.getProdutoId())
                     .orElseThrow(() -> new EntityNotFoundException("Produto inválido"));
 
             ItemPedido item = new ItemPedido();
             item.setProduto(produto);
-            item.setQuantidade(itemDTO.quantidade());
+            item.setQuantidade(itemDTO.getQuantidade());
             item.setPrecoUnitario(produto.getPreco());
             item.setPedido(pedido);
 
