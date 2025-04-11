@@ -1,0 +1,6 @@
+ALTER TABLE produtos
+    ADD COLUMN vinicola VARCHAR2(255),
+ADD COLUMN safra VARCHAR2(20),
+ADD COLUMN classificacao VARCHAR2(50),
+ADD COLUMN teor_alcoolico VARCHAR2(20),
+ADD COLUMN destaque NUMBER(1);
