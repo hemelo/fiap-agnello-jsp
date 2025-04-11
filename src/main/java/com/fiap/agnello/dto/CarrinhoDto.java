@@ -36,4 +36,18 @@ public class CarrinhoDto {
     public void limpar() {
         itens.clear();
     }
+
+    public void alterarQuantidade(Long produtoId, int novaQuantidade) {
+        if (novaQuantidade <= 0) {
+            removerItem(produtoId);
+            return;
+        }
+
+        for (int i = 0; i < itens.size(); i++) {
+            if (itens.get(i).getProdutoId().equals(produtoId)) {
+                itens.set(i, new ItemPedidoDto(produtoId, novaQuantidade));
+                return;
+            }
+        }
+    }
 }

@@ -60,7 +60,7 @@ public class PedidoService {
                 throw new IllegalArgumentException("Cupom expirado");
             }
 
-            total -= cupom.getValor();
+            //total -= cupom.getValor();
         }
 
         pedido.setValorTotal(total);

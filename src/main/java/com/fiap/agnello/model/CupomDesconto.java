@@ -22,10 +22,11 @@ public class CupomDesconto {
     @Column(unique = true)
     private String codigo;
 
-    @DecimalMin("0.01")
-    private Double valor;
-
     private LocalDate validade;
+
+    @DecimalMin("0.01")
+    @Max(100)
+    private Double percentual; // exemplo: 10.0 para 10%
 
     private Boolean ativo;
 

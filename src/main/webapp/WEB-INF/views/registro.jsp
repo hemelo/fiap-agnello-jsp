@@ -107,10 +107,10 @@
         <p>Vinheria Agnello est. 1990 &nbsp; | &nbsp; SE BEBER, NÃO DIRIJA. APRECIE COM MODERAÇÃO. A VENDA DE BEBIDAS ALCOÓLICAS É PROIBIDA PARA MENORES DE 18 ANOS.</p>
         <div class="mt-2 flex justify-center space-x-4">
             <span>FORMAS DE PAGAMENTO</span>
-            <img src="/img/visa.png" alt="Visa" class="h-4" />
-            <img src="/img/mastercard.png" alt="Mastercard" class="h-4" />
-            <img src="/img/elo.png" alt="Elo" class="h-4" />
-            <img src="/img/paypal.png" alt="Paypal" class="h-4" />
+            <img src="${pageContext.request.contextPath}/img/visa.png" alt="Visa" class="h-4" />
+            <img src="${pageContext.request.contextPath}/img/mastercard.png" alt="Mastercard" class="h-4" />
+            <img src="${pageContext.request.contextPath}/img/elo.png" alt="Elo" class="h-4" />
+            <img src="${pageContext.request.contextPath}/img/paypal.png" alt="Paypal" class="h-4" />
         </div>
     </footer>
 </div>

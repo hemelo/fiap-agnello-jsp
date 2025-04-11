@@ -24,12 +24,13 @@
             <h5 class="font-semibold mb-2">Clube Agnello</h5>
             <ul>
                 <li><a href="#">Como funciona</a></li>
-                <li><a href="#">Seja um membro</a></li>
+                <li><a href="${pageContext.request.contextPath}/assinatura">Seja um membro</a></li>
             </ul>
         </div>
         <div>
             <h5 class="font-semibold mb-2">Sobre nós</h5>
             <ul>
+                <li><a href="${pageContext.request.contextPath}/sobre">Nossa História</a></li>
                 <li><a href="#">Instagram</a></li>
                 <li><a href="#">YouTube</a></li>
                 <li><a href="#">TikTok</a></li>

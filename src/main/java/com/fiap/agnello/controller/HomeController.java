@@ -42,6 +42,13 @@ public class HomeController {
             log.debug("Produtos recomendados não encontrados");
         }
 
+        model.addAttribute("pageTitle", "Home");
         return "index";
+    }
+
+    @GetMapping("/sobre")
+    public String sobre(Model model) {
+        model.addAttribute("pageTitle", "Sobre");
+        return "sobre";
     }
 }

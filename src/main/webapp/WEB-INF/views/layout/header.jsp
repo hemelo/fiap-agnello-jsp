@@ -6,7 +6,7 @@
     <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
         <!-- LOGO + NOME -->
-        <a href="${pageContext.request.contextPath}" class="flex items-center gap-2">
+        <a href="${pageContext.request.contextPath}/home" class="flex items-center gap-2">
             <img src="${pageContext.request.contextPath}/img/logo.svg" alt="Logo" class="h-10" />
             <span class="hidden md:inline text-lg font-semibold text-[#581c36]">Vinheria Agnello</span>
         </a>
@@ -22,9 +22,9 @@
 
         <!-- MENU (Desktop) -->
         <nav class="hidden md:flex gap-6 text-sm text-gray-700">
-            <a href="#" class="hover:text-[#581c36]">Vinhos</a>
+            <a href="${pageContext.request.contextPath}/produtos" class="hover:text-[#581c36]">Vinhos</a>
             <a href="#" class="hover:text-[#581c36]">Presentes</a>
-            <a href="#" class="hover:text-[#581c36]">Clube Agnello</a>
+            <a href="${pageContext.request.contextPath}/assinatura" class="hover:text-[#581c36]">Clube Agnello</a>
         </nav>
 
         <!-- AÇÕES (buscar + usuário + carrinho) -->

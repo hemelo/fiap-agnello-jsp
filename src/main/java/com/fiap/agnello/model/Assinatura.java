@@ -23,7 +23,9 @@ public class Assinatura {
     @CreationTimestamp
     private LocalDate dataInicio;
 
-    private String plano;
+    @ManyToOne
+    @JoinColumn(name = "plano_id")
+    private AssinaturaPlano plano;
 
     private Boolean ativo;
 

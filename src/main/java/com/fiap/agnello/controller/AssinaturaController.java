@@ -1,6 +1,7 @@
 package com.fiap.agnello.controller;
 
 import com.fiap.agnello.model.Assinatura;
+import com.fiap.agnello.model.AssinaturaPlano;
 import com.fiap.agnello.model.Usuario;
 import com.fiap.agnello.security.UsuarioDetails;
 import com.fiap.agnello.service.AssinaturaService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -26,19 +28,20 @@ public class AssinaturaController {
     @GetMapping
     public ModelAndView assinaturaPage(@AuthenticationPrincipal UsuarioDetails userDetails) {
 
-        Optional<Assinatura> assinatura = assinaturaService.buscarAtivaPorUsuario(userDetails.getUsuario().getId());
+        Optional<Assinatura> assinatura = userDetails != null ? assinaturaService.buscarAtivaPorUsuario(userDetails.getUsuario().getId()) : Optional.empty();
 
-        ModelAndView mv = new ModelAndView("views/assinatura");
+        List<AssinaturaPlano> planos = assinaturaService.listarPlanos();
+
+        ModelAndView mv = new ModelAndView("assinatura");
         mv.addObject("pageTitle", "Assinatura");
+        mv.addObject("planos", planos);
         mv.addObject("assinatura", assinatura.orElse(null));
         return mv;
     }
 
     @PostMapping
-    public String criar(@RequestParam String plano, @AuthenticationPrincipal UsuarioDetails userDetails) {
-
-
-        assinaturaService.criarAssinatura(userDetails.getUsuario().getId(), plano);
+    public String criar(@RequestParam Long planoId, @AuthenticationPrincipal UsuarioDetails userDetails) {
+        assinaturaService.criarAssinatura(userDetails.getUsuario().getId(), planoId);
         return "redirect:/assinatura";
     }
 

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -51,10 +52,18 @@ public class ProdutoService {
 
         List<PaisDto> paisesDto =  paises.stream()
                 .map(pais -> new PaisDto(pais, null))
-                .toList();
+                .collect(Collectors.toList());
+
+        String paisCode = null;
 
         for (PaisDto paisDto : paisesDto) {
-            paisDto.setBandeiraUrl("/flags/" + PaisesUtils.getCountryCode(paisDto.getNome()) + ".svg");
+            paisCode = PaisesUtils.getCountryCode(paisDto.getNome());
+
+            if (paisCode == null) {
+                paisesDto.remove(paisDto);
+            }
+
+            paisDto.setBandeiraUrl("/flags/" + paisCode  + ".svg");
         }
 
         return paisesDto;
