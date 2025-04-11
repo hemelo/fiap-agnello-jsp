@@ -2,12 +2,15 @@ package com.fiap.agnello.controller;
 
 import com.fiap.agnello.service.ProdutoService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class HomeController {
 
     private final ProdutoService produtoService;
@@ -17,26 +20,26 @@ public class HomeController {
 
         try {
             model.addAttribute("destaque", produtoService.getProdutoDestaque());
-        } catch (Exception e) {
-            model.addAttribute("destaque", null);
+        } catch (EmptyResultDataAccessException e) {
+            log.debug("Produto destaque não encontrado");
         }
 
         try {
             model.addAttribute("categorias", produtoService.getCategoriasPorTipo());
-        } catch (Exception e) {
-            model.addAttribute("categorias", null);
+        } catch (EmptyResultDataAccessException e) {
+            log.debug("Categorias não encontradas");
         }
 
         try {
             model.addAttribute("paises", produtoService.getPaisesComProdutos());
-        } catch (Exception e) {
-            model.addAttribute("paises", null);
+        } catch (EmptyResultDataAccessException e) {
+            log.debug("Paises não encontrados");
         }
 
         try {
             model.addAttribute("recomendados", produtoService.getProdutosRecomendados());
-        } catch (Exception e) {
-            model.addAttribute("recomendados", null);
+        } catch (EmptyResultDataAccessException e) {
+            log.debug("Produtos recomendados não encontrados");
         }
 
         return "index";

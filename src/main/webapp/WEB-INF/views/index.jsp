@@ -73,7 +73,7 @@
                 <div class="flex flex-wrap justify-center gap-8">
                     <c:forEach var="pais" items="${paises}">
                         <div class="flex flex-col items-center text-sm">
-                            <img src="${pais.bandeiraUrl}" alt="${pais.nome}" class="w-14 h-14 rounded-full border" />
+                            <img src="${pageContext.request.contextPath}/img${pais.bandeiraUrl}" alt="${pais.nome}" class="w-14 h-14 rounded-full border" />
                             <span class="mt-2">${pais.nome}</span>
                         </div>
                     </c:forEach>

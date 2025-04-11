@@ -18,8 +18,8 @@ public class CarrinhoDto {
 
     public void adicionarItem(Long produtoId, int quantidade) {
         for (ItemPedidoDto item : itens) {
-            if (item.produtoId().equals(produtoId)) {
-                int novaQtd = item.quantidade() + quantidade;
+            if (item.getProdutoId().equals(produtoId)) {
+                int novaQtd = item.getQuantidade() + quantidade;
                 itens.remove(item);
                 itens.add(new ItemPedidoDto(produtoId, novaQtd));
                 return;
@@ -30,7 +30,7 @@ public class CarrinhoDto {
     }
 
     public void removerItem(Long produtoId) {
-        itens.removeIf(item -> item.produtoId().equals(produtoId));
+        itens.removeIf(item -> item.getProdutoId().equals(produtoId));
     }
 
     public void limpar() {

@@ -4,6 +4,7 @@ import com.fiap.agnello.dto.CategoriaDto;
 import com.fiap.agnello.dto.PaisDto;
 import com.fiap.agnello.model.Produto;
 import com.fiap.agnello.repository.ProdutoRepository;
+import com.fiap.agnello.utils.PaisesUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -28,15 +29,35 @@ public class ProdutoService {
     }
 
     public List<CategoriaDto> getCategoriasPorTipo() {
-        return produtoRepository.findTipos().stream()
+
+        List<String> tipos = produtoRepository.findTipos();
+
+        if (tipos.isEmpty()) {
+            throw new EmptyResultDataAccessException(1);
+        }
+
+        return tipos.stream()
                 .map(tipo -> new CategoriaDto(tipo, "/img/tipos/" + tipo.toLowerCase() + ".png"))
                 .toList();
     }
 
     public List<PaisDto> getPaisesComProdutos() {
-        return produtoRepository.findPaises().stream()
-                .map(pais -> new PaisDto(pais, "/img/paises/" + pais.toLowerCase() + ".png"))
+
+        List<String> paises = produtoRepository.findPaises();
+
+        if (paises.isEmpty()) {
+            throw new EmptyResultDataAccessException(1);
+        }
+
+        List<PaisDto> paisesDto =  paises.stream()
+                .map(pais -> new PaisDto(pais, null))
                 .toList();
+
+        for (PaisDto paisDto : paisesDto) {
+            paisDto.setBandeiraUrl("/flags/" + PaisesUtils.getCountryCode(paisDto.getNome()) + ".svg");
+        }
+
+        return paisesDto;
     }
 
     public List<Produto> getProdutosRecomendados() {
