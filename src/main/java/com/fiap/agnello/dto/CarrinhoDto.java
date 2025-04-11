@@ -1,6 +1,5 @@
 package com.fiap.agnello.dto;
 
-import br.com.vinheriaagnello.dto.ItemPedidoDTO;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
@@ -13,20 +12,21 @@ import java.util.List;
 @SessionScope
 @Getter
 @Setter
-public class Carrinho {
+public class CarrinhoDto {
 
-    private List<ItemPedidoDTO> itens = new ArrayList<>();
+    private List<ItemPedidoDto> itens = new ArrayList<>();
 
     public void adicionarItem(Long produtoId, int quantidade) {
-        for (ItemPedidoDTO item : itens) {
+        for (ItemPedidoDto item : itens) {
             if (item.produtoId().equals(produtoId)) {
                 int novaQtd = item.quantidade() + quantidade;
                 itens.remove(item);
-                itens.add(new ItemPedidoDTO(produtoId, novaQtd));
+                itens.add(new ItemPedidoDto(produtoId, novaQtd));
                 return;
             }
         }
-        itens.add(new ItemPedidoDTO(produtoId, quantidade));
+
+        itens.add(new ItemPedidoDto(produtoId, quantidade));
     }
 
     public void removerItem(Long produtoId) {
