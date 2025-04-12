@@ -14,6 +14,7 @@ import java.util.List;
 @Setter
 public class CarrinhoDto {
 
+    private String cupom;
     private List<ItemPedidoDto> itens = new ArrayList<>();
 
     public void adicionarItem(Long produtoId, int quantidade) {
@@ -35,6 +36,7 @@ public class CarrinhoDto {
 
     public void limpar() {
         itens.clear();
+        cupom = null;
     }
 
     public void alterarQuantidade(Long produtoId, int novaQuantidade) {

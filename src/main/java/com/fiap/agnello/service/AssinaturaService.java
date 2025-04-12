@@ -42,8 +42,9 @@ public class AssinaturaService {
         return assinatura;
     }
 
-    public Optional<Assinatura> buscarAtivaPorUsuario(Long usuarioId) {
-        return assinaturaRepository.findByUsuarioIdAndAtivo(usuarioId, true);
+    public Assinatura buscarAtivaPorUsuario(Long usuarioId) {
+        return assinaturaRepository.findByUsuarioIdAndAtivo(usuarioId, true).orElseThrow(
+                () -> new EntityNotFoundException("Assinatura ativa não encontrada para o usuário com ID: " + usuarioId));
     }
 
     public void cancelarAssinatura(Long id) {

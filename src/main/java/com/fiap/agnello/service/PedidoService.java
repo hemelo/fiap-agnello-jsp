@@ -23,7 +23,9 @@ public class PedidoService {
     private final ItemPedidoRepository itemPedidoRepository;
     private final CupomDescontoRepository cupomRepository;
 
-    public Pedido criarPedido(Long usuarioId, Long enderecoId, List<ItemPedidoDto> itensDTO, String codigoCupom) {
+    private final ProdutoService produtoService;
+
+    public Pedido criarPedido(Long usuarioId, Long enderecoId, List<ItemPedidoDto> itens, String codigoCupom) {
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
 
@@ -38,9 +40,8 @@ public class PedidoService {
 
         double total = 0;
 
-        for (ItemPedidoDto itemDTO : itensDTO) {
-            Produto produto = produtoRepository.findById(itemDTO.getProdutoId())
-                    .orElseThrow(() -> new EntityNotFoundException("Produto inválido"));
+        for (ItemPedidoDto itemDTO : itens) {
+            Produto produto = produtoService.buscarPorId(itemDTO.getProdutoId());
 
             ItemPedido item = new ItemPedido();
             item.setProduto(produto);
@@ -60,7 +61,9 @@ public class PedidoService {
                 throw new IllegalArgumentException("Cupom expirado");
             }
 
-            //total -= cupom.getValor();
+            total -= (cupom.getPercentual() * total / 100);
+
+            pedido.setCupomDesconto(cupom);
         }
 
         pedido.setValorTotal(total);
@@ -71,7 +74,8 @@ public class PedidoService {
         return pedidoRepository.findByUsuarioId(usuarioId);
     }
 
-    public Optional<Pedido> buscarPorId(Long pedidoId) {
-        return pedidoRepository.findById(pedidoId);
+    public Pedido buscarPorId(Long pedidoId) {
+        return pedidoRepository.findById(pedidoId).orElseThrow(
+                () -> new EntityNotFoundException("Pedido não encontrado"));
     }
 }

@@ -79,17 +79,25 @@
                 <div class="flex items-center gap-2">
                     <input type="text" name="cupom" value="${cupom}" class="flex-1 border border-gray-300 rounded px-2 py-1" placeholder="Inserir Cupom"/>
                 </div>
-            </form>
-            <c:if test="${not empty cupomAplicado}">
-                <div class="flex justify-between mb-2 text-green-700 font-medium">
-                    <span>Desconto (${cupomAplicado.percentual}%)</span>
-                    <span>- R$ ${String.format("%.2f", desconto)}</span>
+                <div>
+                    <c:if test="${not empty cupons}">
+                        <div class="mt-2 text-sm text-gray-500">
+                            <span>Cupons disponíveis:</span>
+                        </div>
+                        <c:forEach var="cupom" items="${cupons}">
+                            <div class="inline-flex justify-between gap-2 mb-2">
+                                <span>${cupom.codigo}</span>
+                            </div>
+                        </c:forEach>
+                    </c:if>
                 </div>
-            </c:if>
+            </form>
+
             <div class="flex justify-between mb-2">
                 <span>Frete</span>
                 <span class="text-sm text-gray-500">Calcular</span>
             </div>
+
             <div class="border-t pt-4 mt-4">
                 <div class="flex justify-between font-semibold text-lg">
                     <span>Total</span>
@@ -109,8 +117,10 @@
                 </c:if>
             </div>
 
-            <form action="${pageContext.request.contextPath}/checkout" method="get" class="mt-4">
-                <button type="submit" disabled="${not empty erro}" class="w-full bg-red-900 disabled:bg-gray-600 disabled:text-gray-400 hover:bg-red-800 text-white font-semibold py-2 rounded">
+            <jsp:include page="layout/bandeiras.jsp" />
+
+            <form action="${pageContext.request.contextPath}/pedidos" method="get" class="mt-4">
+                <button type="submit" class="w-full bg-red-900 disabled:bg-gray-600 disabled:text-gray-400 hover:bg-red-800 text-white font-semibold py-2 rounded">
                     Finalizar Compra
                 </button>
             </form>

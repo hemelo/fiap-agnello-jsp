@@ -1,50 +1,99 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 
-<jsp:include page="layout/head.jsp" />
+<jsp:include page="layout/head.jsp"/>
 
-<h2>Meu Perfil</h2>
+<div class="min-h-screen flex flex-col justify-between">
+    <!-- NAVBAR -->
+    <jsp:include page="layout/header.jsp"/>
 
-<form action="/perfil/atualizar" method="post">
-    <label>Nome:</label>
-    <input type="text" name="nome" value="${usuario.nome}" required />
+    <div class="mx-auto container">
 
-    <label>Email:</label>
-    <input type="email" name="email" value="${usuario.email}" readonly />
+        <section class="py-12 px-4 space-y-12">
 
-    <label>Nova Senha:</label>
-    <input type="password" name="senha" placeholder="Deixe em branco para manter a mesma" />
+            <c:if test="${not empty sucesso}">
+                <div class="mt-4 px-4 py-2 bg-green-100 text-green-800 rounded">
+                        ${sucesso}
+                </div>
+            </c:if>
 
-    <button type="submit">Atualizar Dados</button>
-</form>
+            <c:if test="${not empty erro}">
+                <div class="mt-4 px-4 py-2 bg-red-100 text-red-800 rounded">
+                        ${erro}
+                </div>
+            </c:if>
 
-<hr/>
+            <!-- Dados do Usuário -->
+            <div class="bg-white p-6 rounded shadow">
+                <h2 class="text-lg font-semibold mb-4">Seus Dados</h2>
+                <form action="${pageContext.request.contextPath}/perfil/atualizar" method="post" class="space-y-4">
+                    <div>
+                        <label class="block text-sm text-gray-700">Nome</label>
+                        <input type="text" name="nome" value="${usuario.nome}" class="w-full border rounded px-3 py-2"/>
+                    </div>
+                    <p class="text-sm text-gray-500">Email: <strong>${usuario.email}</strong> (não editável)</p>
+                    <button type="submit" class="mt-3 bg-red-900 text-white px-4 py-2 rounded hover:bg-red-800">
+                        Atualizar Nome
+                    </button>
+                </form>
+            </div>
 
-<h3>Endereços</h3>
-<c:forEach var="e" items="${enderecos}">
-    <form action="/perfil/endereco/atualizar" method="post" style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
-        <input type="hidden" name="id" value="${e.id}" />
-        <label>Logradouro:</label><input type="text" name="logradouro" value="${e.logradouro}" />
-        <label>Número:</label><input type="text" name="numero" value="${e.numero}" />
-        <label>Complemento:</label><input type="text" name="complemento" value="${e.complemento}" />
-        <label>Bairro:</label><input type="text" name="bairro" value="${e.bairro}" />
-        <label>Cidade:</label><input type="text" name="cidade" value="${e.cidade}" />
-        <label>Estado:</label><input type="text" name="estado" value="${e.estado}" maxlength="2" />
-        <label>CEP:</label><input type="text" name="cep" value="${e.cep}" />
+            <!-- Endereços -->
+            <div class="bg-white p-6 rounded shadow">
+                <h2 class="text-lg font-semibold mb-4">Seus Endereços</h2>
+                <ul class="space-y-2">
+                    <c:forEach var="e" items="${enderecos}">
+                        <li class="border bg-gray-200 px-4 py-2 rounded text-sm">
+                                ${e.logradouro}, ${e.numero} - ${e.cidade}/${e.estado} (${e.cep})
+                        </li>
+                    </c:forEach>
+                </ul>
 
-        <button type="submit">Salvar</button>
-    </form>
-</c:forEach>
+                <form action="${pageContext.request.contextPath}/perfil/endereco/novo" method="post"
+                      class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input name="logradouro" placeholder="Logradouro" class="border px-3 py-2 rounded" required/>
+                    <input name="numero" type="number" placeholder="Número" class="border px-3 py-2 rounded"/>
+                    <input name="complemento" placeholder="Complemento" class="border px-3 py-2 rounded"/>
+                    <input name="bairro" placeholder="Bairro" class="border px-3 py-2 rounded" required/>
+                    <input name="cidade" placeholder="Cidade" class="border px-3 py-2 rounded" required/>
+                    <input name="estado" placeholder="Estado" maxlength="2" class="border px-3 py-2 rounded" required/>
+                    <input name="cep" type="number" placeholder="CEP" class="border px-3 py-2 rounded" required/>
+                    <div class="md:col-span-2 text-right">
+                        <button type="submit" class="bg-red-900 text-white px-4 py-2 rounded hover:bg-red-800">
+                            Adicionar Endereço
+                        </button>
+                    </div>
+                </form>
+            </div>
 
-<h4>Novo Endereço</h4>
+            <!-- Assinatura -->
+            <div class="bg-white p-6 rounded shadow">
+                <h2 class="text-lg font-semibold mb-4">Assinatura</h2>
+                <c:choose>
+                    <c:when test="${not empty assinatura}">
+                        <p class="text-sm mb-2">
+                            <strong>Plano:</strong> ${assinatura.plano} <br/>
+                            <strong>Início:</strong> ${assinatura.dataInicio}
+                        </p>
+                        <form action="${pageContext.request.contextPath}/assinatura/cancelar" method="post">
+                            <input type="hidden" name="id" value="${assinatura.id}"/>
+                            <button type="submit" class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600">
+                                Cancelar Assinatura
+                            </button>
+                        </form>
+                    </c:when>
+                    <c:otherwise>
+                        <p class="text-sm text-gray-600">Você ainda não possui uma assinatura ativa.</p>
+                        <a href="${pageContext.request.contextPath}/assinatura"
+                           class="text-red-900 font-medium underline text-sm">Assinar agora</a>
+                    </c:otherwise>
+                </c:choose>
+            </div>
 
-<form action="/perfil/endereco/novo" method="post">
-    <label>Logradouro:</label><input type="text" name="logradouro" required />
-    <label>Número:</label><input type="text" name="numero" />
-    <label>Complemento:</label><input type="text" name="complemento" />
-    <label>Bairro:</label><input type="text" name="bairro" required />
-    <label>Cidade:</label><input type="text" name="cidade" required />
-    <label>Estado:</label><input type="text" name="estado" maxlength="2" required />
-    <label>CEP:</label><input type="text" name="cep" required />
+        </section>
 
-    <button type="submit">Adicionar Endereço</button>
-</form>
+    </div>
+    <jsp:include page="layout/footer.jsp"/>
+</div>
+
+<jsp:include page="layout/end.jsp"/>

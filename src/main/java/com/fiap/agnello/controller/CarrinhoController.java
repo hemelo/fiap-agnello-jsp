@@ -7,6 +7,9 @@ import com.fiap.agnello.model.Produto;
 import com.fiap.agnello.repository.CupomDescontoRepository;
 import com.fiap.agnello.repository.ProdutoRepository;
 import com.fiap.agnello.service.AssinaturaService;
+import com.fiap.agnello.service.CupomService;
+import com.fiap.agnello.service.ProdutoService;
+import io.micrometer.common.util.StringUtils;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,22 +32,16 @@ import java.util.Optional;
 public class CarrinhoController {
 
     private final CarrinhoDto carrinho;
-    private final ProdutoRepository produtoRepository;
-    private final CupomDescontoRepository cupomRepository;
+    private final ProdutoService produtoService;
     private final AssinaturaService assinaturaService;
-
-    @ModelAttribute("carrinho")
-    public CarrinhoDto carrinho() {
-        return carrinho;
-    }
+    private final CupomService cupomService;
 
     @GetMapping
     public ModelAndView visualizar(@RequestParam(required = false) String cupom) {
         ModelAndView mv = new ModelAndView("carrinho");
 
         List<Map<String, Object>> itensDetalhados = carrinho.getItens().stream().map(item -> {
-            Produto produto = produtoRepository.findById(item.getProdutoId())
-                    .orElseThrow(() -> new EntityNotFoundException("Produto não encontrado"));
+            Produto produto = produtoService.buscarPorId(item.getProdutoId());
             Map<String, Object> map = new HashMap<>();
             map.put("produto", produto);
             map.put("quantidade", item.getQuantidade());
@@ -60,15 +57,16 @@ public class CarrinhoController {
             double desconto = 0.0;
             CupomDesconto cupomAplicado = null;
 
-            if (cupom != null && !cupom.isBlank()) {
-                Optional<CupomDesconto> opt = cupomRepository.findByCodigoAndAtivoTrue(cupom.toUpperCase());
-
-                if (opt.isPresent() && !opt.get().getValidade().isBefore(LocalDate.now())) {
-                    cupomAplicado = opt.get();
+            if (StringUtils.isNotBlank(cupom)) {
+                try {
+                    cupomAplicado = cupomService.buscarCupomValidoPorCodigo(cupom);
                     desconto = subtotal * (cupomAplicado.getPercentual() / 100.0);
-                } else {
+                    carrinho.setCupom(cupom);
+                } catch (Exception ex) {
                     mv.addObject("erro", "Cupom inválido ou expirado.");
                 }
+            } else {
+                mv.addObject("cupons", cupomService.buscarTodosCuponsValidosExibiveis());
             }
 
             double total = subtotal - desconto;

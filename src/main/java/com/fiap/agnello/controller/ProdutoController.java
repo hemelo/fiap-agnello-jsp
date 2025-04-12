@@ -40,6 +40,7 @@ public class ProdutoController {
                                @RequestParam(required = false) String pais,
                                @RequestParam(required = false) Double teor,
                                @RequestParam(required = false) String vinicola,
+                                 @RequestParam(required = false) String tipo,
                                @PageableDefault(size = 10, sort = "nome") Pageable pageable) {
 
         Page<Produto> pagina = produtoService.filtrarProdutos(
@@ -47,6 +48,7 @@ public class ProdutoController {
                         .and(ProdutoSpec.classificacaoIgual(classificacao))
                         .and(ProdutoSpec.paisIgual(pais))
                         .and(ProdutoSpec.teorIgual(teor))
+                        .and(ProdutoSpec.tipoIgual(tipo))
                         .and(ProdutoSpec.vinicolaIgual(vinicola)),
                 pageable
         );
@@ -72,12 +74,17 @@ public class ProdutoController {
             mv.addObject("vinicolas", produtoService.buscarVinicolas());
         } catch (Exception ignored) {}
 
+        try {
+            mv.addObject("tipos", produtoService.buscarTipos());
+        } catch (Exception ignored) {}
+
         // mantém filtros para recarregar no form e na URL
         mv.addObject("nome", nome);
         mv.addObject("classificacao", classificacao);
         mv.addObject("pais", pais);
         mv.addObject("teor", teor);
         mv.addObject("vinicola", vinicola);
+        mv.addObject("tipo", tipo);
 
         if (pagina.getContent().isEmpty()) {
             mv.addObject("erro", "Nenhum produto encontrado com os filtros aplicados.");
@@ -88,9 +95,7 @@ public class ProdutoController {
 
     @GetMapping("/{id}")
     public ModelAndView detalhes(@PathVariable Long id) {
-        Produto produto = produtoService.buscarPorId(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
+        Produto produto = produtoService.buscarPorId(id);
         ModelAndView mv = new ModelAndView("produto");
         mv.addObject("produto", produto);
         return mv;

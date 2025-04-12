@@ -3,7 +3,7 @@
 
 <jsp:include page="layout/head.jsp" />
 
-<div class="bg-gray-50 min-h-screen flex flex-col justify-between">
+<div class="bg-gray-50 min-h-screen flex flex-col">
     <!-- Header -->
     <header class="bg-gray-200  text-white py-2 px-6 flex items-center justify-between">
         <div class="flex items-center space-x-2">
@@ -11,7 +11,7 @@
         </div>
     </header>
 
-    <main class="flex-grow flex flex-col items-center py-12 px-4">
+    <main class="grow flex flex-col items-center py-12 px-4">
         <div class="max-w-2xl w-full bg-white p-10 rounded-md shadow">
             <h2 class="text-2xl font-semibold text-center text-[#581c36] mb-2">Cadastre-se na sua vinheria favorita!</h2>
             <p class="text-center text-sm text-gray-600 mb-6">O cadastro é gratuito. Aproveite sua nova conta para visualizar ofertas únicas e selecionadas!</p>
@@ -105,13 +105,7 @@
     <!-- Footer -->
     <footer class="bg-[#581c36] text-white text-xs text-center py-4">
         <p>Vinheria Agnello est. 1990 &nbsp; | &nbsp; SE BEBER, NÃO DIRIJA. APRECIE COM MODERAÇÃO. A VENDA DE BEBIDAS ALCOÓLICAS É PROIBIDA PARA MENORES DE 18 ANOS.</p>
-        <div class="mt-2 flex justify-center space-x-4">
-            <span>FORMAS DE PAGAMENTO</span>
-            <img src="${pageContext.request.contextPath}/img/visa.png" alt="Visa" class="h-4" />
-            <img src="${pageContext.request.contextPath}/img/mastercard.png" alt="Mastercard" class="h-4" />
-            <img src="${pageContext.request.contextPath}/img/elo.png" alt="Elo" class="h-4" />
-            <img src="${pageContext.request.contextPath}/img/paypal.png" alt="Paypal" class="h-4" />
-        </div>
+        <jsp:include page="layout/bandeiras.jsp" />
     </footer>
 </div>
 

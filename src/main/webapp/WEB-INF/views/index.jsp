@@ -7,7 +7,7 @@
     <!-- NAVBAR -->
     <jsp:include page="layout/header.jsp" />
 
-    <div class="flex-grow-1">
+    <div class="grow">
         <!-- BANNER PRINCIPAL -->
         <section class="bg-[#f3e7de] py-16 px-6">
             <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10">

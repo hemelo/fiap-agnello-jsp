@@ -29,5 +29,10 @@ public class ProdutoSpec {
         return (root, query, cb) ->
                 valor == null || valor.isBlank() ? null : cb.equal(root.get("vinicola"), valor);
     }
+
+    public static Specification<Produto> tipoIgual(String valor) {
+        return (root, query, cb) ->
+                valor == null || valor.isBlank() ? null : cb.equal(root.get("tipo"), valor);
+    }
 }
 

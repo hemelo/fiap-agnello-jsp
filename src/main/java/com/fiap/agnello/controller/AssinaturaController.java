@@ -28,14 +28,21 @@ public class AssinaturaController {
     @GetMapping
     public ModelAndView assinaturaPage(@AuthenticationPrincipal UsuarioDetails userDetails) {
 
-        Optional<Assinatura> assinatura = userDetails != null ? assinaturaService.buscarAtivaPorUsuario(userDetails.getUsuario().getId()) : Optional.empty();
+        Assinatura assinatura = null;
+
+        try {
+            if (userDetails != null)
+                assinatura = assinaturaService.buscarAtivaPorUsuario(userDetails.getUsuario().getId());
+        } catch (Exception e) {
+            // Log the exception if needed
+        }
 
         List<AssinaturaPlano> planos = assinaturaService.listarPlanos();
 
         ModelAndView mv = new ModelAndView("assinatura");
         mv.addObject("pageTitle", "Assinatura");
         mv.addObject("planos", planos);
-        mv.addObject("assinatura", assinatura.orElse(null));
+        mv.addObject("assinatura", assinatura);
         return mv;
     }
 

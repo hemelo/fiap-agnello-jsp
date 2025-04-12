@@ -30,6 +30,8 @@ public class CupomDesconto {
 
     private Boolean ativo;
 
+    private Boolean exibir;
+
     @CreationTimestamp
     private LocalDateTime createdAt;
 

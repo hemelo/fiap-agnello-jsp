@@ -5,11 +5,11 @@
 
 <div class="bg-gray-50 min-h-screen flex flex-col justify-between">
     <!-- Header -->
-    <header class="bg-gray-200  text-white py-2 px-6 flex items-center justify-between">
+    <header class="bg-gray-200  text-white py-2 px-6 flex items-center">
         <jsp:include page="layout/logo.jsp" />
     </header>
 
-    <main class="flex-grow flex flex-col items-center py-12 px-4">
+    <main class="grow flex flex-col items-center py-12 px-4">
         <div class="max-w-md w-full bg-white p-10 rounded-md shadow">
             <h2 class="text-2xl font-semibold text-center text-[#581c36] mb-4">Acesse sua conta</h2>
             <p class="text-center text-sm text-gray-600 mb-6">Faça login para acompanhar pedidos e aproveitar ofertas exclusivas.</p>
@@ -67,6 +67,12 @@
                 </div>
             </form>
 
+            <div class="my-6 p-4 rounded bg-yellow-100 border border-yellow-300 text-yellow-900 text-sm max-w-md mx-auto shadow">
+                <strong>Usuário de Teste</strong><br/>
+                <span>Email:</span> <code class="font-mono bg-white px-1 py-0.5 rounded border">teste@vinheria.com</code><br/>
+                <span>Senha:</span> <code class="font-mono bg-white px-1 py-0.5 rounded border">123456</code>
+            </div>
+
             <!-- Link cadastro -->
             <div class="text-center text-sm text-gray-600 mt-6">
                 Ainda não possui uma conta? <a href="${pageContext.request.contextPath}/registro" class="text-[#581c36] font-semibold">Cadastre-se aqui</a>
@@ -77,13 +83,7 @@
     <!-- Footer -->
     <footer class="bg-[#581c36] text-white text-xs text-center py-4">
         <p>Vinheria Agnello est. 1990 &nbsp; | &nbsp; SE BEBER, NÃO DIRIJA. APRECIE COM MODERAÇÃO. A VENDA DE BEBIDAS ALCOÓLICAS É PROIBIDA PARA MENORES DE 18 ANOS.</p>
-        <div class="mt-2 flex justify-center space-x-4">
-            <span>FORMAS DE PAGAMENTO</span>
-            <img src="/img/visa.png" alt="Visa" class="h-4" />
-            <img src="/img/mastercard.png" alt="Mastercard" class="h-4" />
-            <img src="/img/elo.png" alt="Elo" class="h-4" />
-            <img src="/img/paypal.png" alt="Paypal" class="h-4" />
-        </div>
+        <jsp:include page="layout/bandeiras.jsp" />
     </footer>
 </div>
 

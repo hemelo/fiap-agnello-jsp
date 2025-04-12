@@ -2,18 +2,21 @@ package com.fiap.agnello.service;
 
 import com.fiap.agnello.model.Pagamento;
 import com.fiap.agnello.model.Pedido;
+import com.fiap.agnello.repository.CupomDescontoRepository;
 import com.fiap.agnello.repository.PagamentoRepository;
 import com.fiap.agnello.repository.PedidoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class PagamentoService {
 
+    private final CupomDescontoRepository cupomRepository;
     private final PedidoRepository pedidoRepository;
     private final PagamentoRepository pagamentoRepository;
 

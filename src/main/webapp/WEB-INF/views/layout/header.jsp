@@ -49,6 +49,7 @@
                     <!-- DROPDOWN -->
                     <div class="absolute top-full right-0 w-36 bg-white shadow rounded border hidden group-hover:flex flex-col text-sm z-50">
                         <a href="${pageContext.request.contextPath}/perfil" class="px-4 py-2 hover:bg-gray-100">Meu perfil</a>
+                        <a href="${pageContext.request.contextPath}/pedidos/meus" class="px-4 py-2 hover:bg-gray-100">Meus pedidos</a>
                         <a href="${pageContext.request.contextPath}/logout" class="px-4 py-2 hover:bg-gray-100">Sair</a>
                     </div>
                 </div>

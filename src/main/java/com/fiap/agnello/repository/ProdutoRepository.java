@@ -34,5 +34,10 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long>, JpaSpec
     @Query("SELECT DISTINCT p.vinicola FROM Produto p WHERE p.vinicola IS NOT NULL")
     List<String> findDistinctVinicolas();
 
+    @Query("SELECT DISTINCT p.tipo FROM Produto p WHERE p.tipo IS NOT NULL")
+    List<String> findDistinctTipos();
+
     Page<Produto> findAll(Specification<Produto> and, Pageable pageable);
+
+
 }

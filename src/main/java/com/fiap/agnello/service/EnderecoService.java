@@ -3,7 +3,6 @@ package com.fiap.agnello.service;
 import com.fiap.agnello.model.Endereco;
 import com.fiap.agnello.model.Usuario;
 import com.fiap.agnello.repository.EnderecoRepository;
-import com.fiap.agnello.repository.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,12 +14,11 @@ import java.util.List;
 public class EnderecoService {
 
     private final EnderecoRepository enderecoRepository;
-    private final UsuarioRepository usuarioRepository;
+    private final UsuarioService usuarioService;
 
-    public Endereco salvar(Long usuarioId, Endereco endereco) {
-        Usuario usuario = usuarioRepository.findById(usuarioId)
-                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
-
+    public Endereco cadastrarEndereco(Long usuarioId, Endereco endereco) {
+        Usuario usuario = usuarioService.buscarUsuarioPorId(usuarioId);
+        endereco.setId(null); // Garantir que o ID seja nulo para criar um novo registro
         endereco.setUsuario(usuario);
         return enderecoRepository.save(endereco);
     }

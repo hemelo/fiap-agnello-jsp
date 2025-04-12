@@ -5,6 +5,7 @@ import com.fiap.agnello.dto.PaisDto;
 import com.fiap.agnello.model.Produto;
 import com.fiap.agnello.repository.ProdutoRepository;
 import com.fiap.agnello.utils.PaisesUtils;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
@@ -22,10 +23,6 @@ import java.util.stream.Collectors;
 public class ProdutoService {
 
     private final ProdutoRepository produtoRepository;
-
-    public List<Produto> listarTodos() {
-        return produtoRepository.findAll();
-    }
 
     public Produto getProdutoDestaque() {
         return produtoRepository.findFirstByDestaqueTrue()
@@ -76,8 +73,8 @@ public class ProdutoService {
         return produtoRepository.findTop8ByOrderByIdDesc();
     }
 
-    public Optional<Produto> buscarPorId(Long id) {
-        return produtoRepository.findById(id);
+    public Produto buscarPorId(Long id) {
+        return produtoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Produto não encontrado"));
     }
 
     public List<String> buscarClassificacoes() {
@@ -120,6 +117,16 @@ public class ProdutoService {
         return vinicolas;
     }
 
+    public Object buscarTipos() {
+        List<String> tipos =  produtoRepository.findDistinctTipos();
+
+        if (tipos.isEmpty()) {
+            throw new EmptyResultDataAccessException(1);
+        }
+
+        return tipos;
+    }
+
     public Page<Produto> filtrarProdutos(Specification<Produto> and, Pageable pageable) {
         if (and == null) {
             return produtoRepository.findAll(pageable);
@@ -127,4 +134,6 @@ public class ProdutoService {
             return produtoRepository.findAll(and, pageable);
         }
     }
+
+
 }

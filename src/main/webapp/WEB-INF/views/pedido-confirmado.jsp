@@ -28,7 +28,7 @@
                 Voltar para a página inicial
             </a>
 
-            <a href="${pageContext.request.contextPath}/perfil/pedidos"
+            <a href="${pageContext.request.contextPath}/pedidos/meus"
                class="text-sm bg-[#581c36] text-white px-4 py-2 rounded-md hover:bg-[#45122a] transition">
                 Ver meus pedidos
             </a>
@@ -49,7 +49,7 @@
         timerSpan.textContent = countdown;
         if (countdown <= 0) {
             clearInterval(interval);
-            window.location.href = "${pageContext.request.contextPath}/perfil/pedidos";
+            window.location.href = "${pageContext.request.contextPath}/pedidos/meus";
         }
     }, 1000);
 </script>

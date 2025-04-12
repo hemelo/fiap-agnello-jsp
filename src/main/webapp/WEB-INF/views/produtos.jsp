@@ -43,6 +43,13 @@
                 </c:forEach>
             </select>
 
+            <select name="tipo" class="w-full border px-3 py-2 rounded">
+                <option value="">Tipo</option>
+                <c:forEach var="tp" items="${tipos}">
+                    <option value="${tp}" ${param.tipo == tp ? 'selected' : ''}>${tp}</option>
+                </c:forEach>
+            </select>
+
             <button type="submit" class="bg-red-900 text-white w-full py-2 rounded">Filtrar</button>
         </form>
 
@@ -88,7 +95,8 @@
                       <c:if test='${not empty classificacao}'> &classificacao=${classificacao}</c:if>
                       <c:if test='${not empty pais}'> &pais=${pais}</c:if>
                       <c:if test='${not empty teor}'> &teor=${teor}</c:if>
-                      <c:if test='${not empty vinicola}'> &vinicola=${vinicola}</c:if>"
+                      <c:if test='${not empty vinicola}'> &vinicola=${vinicola}</c:if>
+                      <c:if test='${not empty tipo}'> &tipo=${tipo}</c:if>"
                            class="px-3 py-1 border rounded
                       ${pagina.number == i ? 'bg-red-900 text-white' : 'bg-white text-gray-700 hover:bg-gray-100'}">
                                 ${i + 1}

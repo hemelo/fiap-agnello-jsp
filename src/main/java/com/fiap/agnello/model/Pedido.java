@@ -37,4 +37,11 @@ public class Pedido {
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<ItemPedido> itens;
+
+    @ManyToOne
+    @JoinColumn(name = "cupom_id")
+    private CupomDesconto cupomDesconto;
+
+    @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL)
+    private Pagamento pagamento;
 }

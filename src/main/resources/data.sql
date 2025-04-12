@@ -31,3 +31,19 @@ VALUES ('Seleção Sommelier', 'Experiência completa com rótulos únicos e cur
   <li>Frete grátis + taça personalizada no 1º mês</li>
 </ul>', 219.0, 'selecao-sommelier', true, '2025-04-11 17:51:10', '2025-04-11 17:51:10', 0);
 
+
+INSERT INTO cupom_desconto (codigo, percentual, validade, ativo, exibir, created_at, updated_at)
+VALUES ('BEMVINDO10', 10.0, '2030-12-31', true, true, '2025-04-11 22:00:10', '2025-04-11 22:00:10');
+INSERT INTO cupom_desconto (codigo, percentual, validade, ativo, exibir, created_at, updated_at)
+VALUES ('FRETEGRATIS', 15.0, '2030-12-31', true, true, '2025-04-11 22:00:10', '2025-04-11 22:00:10');
+
+
+-- Usuário de teste
+INSERT INTO usuario (id, nome, email, senha, role, created_at, updated_at)
+VALUES (1, 'Teste', 'teste@vinheria.com', '$2a$10$Xk2qrrNn/EnK9Xa0ZJA98OA7y6ADLMIDe9CQez2BeQuAU5GG1Q8/i', 'CLIENTE', '2025-04-11 23:43:52', '2025-04-11 23:43:52');
+-- Senha em BCrypt: "123456"
+
+
+-- Endereço padrão para o usuário com ID 1
+INSERT INTO endereco (id, usuario_id, logradouro, numero, complemento, bairro, cidade, estado, cep, created_at, updated_at)
+VALUES (1, 1, 'Rua das Vinhas', '123', 'Apto 202', 'Centro', 'Belo Horizonte', 'MG', '30123-456', '2025-04-12 00:42:41', '2025-04-12 00:42:41');
