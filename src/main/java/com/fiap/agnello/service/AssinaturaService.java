@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -42,7 +41,7 @@ public class AssinaturaService {
         return assinatura;
     }
 
-    public Assinatura buscarAtivaPorUsuario(Long usuarioId) {
+    public Assinatura buscarAssinaturaAtivaPorUsuario(Long usuarioId) {
         return assinaturaRepository.findByUsuarioIdAndAtivo(usuarioId, true).orElseThrow(
                 () -> new EntityNotFoundException("Assinatura ativa não encontrada para o usuário com ID: " + usuarioId));
     }

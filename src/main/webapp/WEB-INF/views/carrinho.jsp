@@ -29,10 +29,14 @@
 
             <c:forEach var="item" items="${itens}">
                 <div class="flex border-b pb-4 mb-6">
-                    <img src="${item.produto.imagemUrl}" alt="${item.produto.nome}" class="w-28 h-52 object-cover"/>
+                    <a href="${pageContext.request.contextPath}/produtos/${item.produto.id}">
+                        <img src="${item.produto.imagemUrl}" alt="${item.produto.nome}" class="w-28 h-52 object-cover"/>
+                    </a>
 
                     <div class="flex-1 ml-6">
-                        <h3 class="text-lg font-semibold">${item.produto.nome}</h3>
+                        <a href="${pageContext.request.contextPath}/produtos/${item.produto.id}">
+                            <h3 class="text-lg font-semibold">${item.produto.nome}</h3>
+                        </a>
                         <p class="text-sm text-gray-700 font-medium mt-2">R$ ${item.produto.preco}</p>
                         <p class="text-sm text-gray-600 mt-3 leading-relaxed">
                             <b>Tipo:</b> ${item.produto.tipo} <br/>

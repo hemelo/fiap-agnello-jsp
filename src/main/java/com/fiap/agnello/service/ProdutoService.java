@@ -4,7 +4,7 @@ import com.fiap.agnello.dto.CategoriaDto;
 import com.fiap.agnello.dto.PaisDto;
 import com.fiap.agnello.model.Produto;
 import com.fiap.agnello.repository.ProdutoRepository;
-import com.fiap.agnello.utils.PaisesUtils;
+import com.fiap.agnello.utils.PaisUtils;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -14,7 +14,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -57,7 +56,7 @@ public class ProdutoService {
         String paisCode = null;
 
         for (PaisDto paisDto : paisesDto) {
-            paisCode = PaisesUtils.getCountryCode(paisDto.getNome());
+            paisCode = PaisUtils.getCountryCode(paisDto.getNome());
 
             if (paisCode == null) {
                 paisesDto.remove(paisDto);

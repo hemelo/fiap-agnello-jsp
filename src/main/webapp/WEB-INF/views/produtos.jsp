@@ -70,10 +70,12 @@
             <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 <c:forEach var="produto" items="${produtos}">
                     <div class="border rounded p-4 bg-white shadow hover:shadow-lg hover:scale-105 transition">
-                        <img src="${produto.imagemUrl}" class="w-full h-48 object-cover mb-4"/>
-                        <h3 class="font-semibold text-lg">${produto.nome}</h3>
-                        <p class="text-sm text-gray-600">${produto.classificacao} - ${produto.pais} - ${produto.teorAlcoolico}</p>
-                        <p class="mt-2 font-bold text-red-900">R$ ${produto.preco}</p>
+                        <a href="${pageContext.request.contextPath}/produtos/${produto.id}">
+                            <img src="${produto.imagemUrl}" class="w-full h-48 object-cover mb-4"/>
+                            <h3 class="font-semibold text-lg">${produto.nome}</h3>
+                            <p class="text-sm text-gray-600">${produto.classificacao} - ${produto.pais} - ${produto.teorAlcoolico}</p>
+                            <p class="mt-2 font-bold text-red-900">R$ ${produto.preco}</p>
+                        </a>
 
                         <form method="post" action="${pageContext.request.contextPath}/produtos/adicionar" class="mt-4">
                             <input type="hidden" name="produtoId" value="${produto.id}" />

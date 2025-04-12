@@ -8,10 +8,9 @@ import java.io.InputStream;
 import java.util.*;
 
 @Slf4j
-public class PaisesUtils {
+public class PaisUtils {
 
     private static Map<String, String> nameToCodeMap;
-
 
     public static String getCountryCode(String countryName) {
 
@@ -21,7 +20,7 @@ public class PaisesUtils {
 
             ObjectMapper objectMapper = new ObjectMapper();
 
-            try (InputStream inputStream = PaisesUtils.class.getResourceAsStream("/static/data/countries.json")) {
+            try (InputStream inputStream = PaisUtils.class.getResourceAsStream("/static/data/countries.json")) {
                 ObjectMapper mapper = new ObjectMapper();
                 Map<String, String> codeToName = mapper.readValue(inputStream, Map.class);
 

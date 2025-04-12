@@ -48,47 +48,47 @@ public class CarrinhoController {
             return map;
         }).toList();
 
+        mv.addObject("pageTitle", "Carrinho de Compras");
+        mv.addObject("cupom", cupom);
+        mv.addObject("itens", itensDetalhados);
 
-        if (!itensDetalhados.isEmpty()) {
+        try {
+            mv.addObject("planoMaisBarato", assinaturaService.buscarPlanoMaisBarato());
+        } catch (Exception ignored) {}
 
-            double subtotal = itensDetalhados.stream().mapToDouble(i ->
-                    ((Produto)i.get("produto")).getPreco().doubleValue() * (int)i.get("quantidade")).sum();
-
-            double desconto = 0.0;
-            CupomDesconto cupomAplicado = null;
-
-            if (StringUtils.isNotBlank(cupom)) {
-                try {
-                    cupomAplicado = cupomService.buscarCupomValidoPorCodigo(cupom);
-                    desconto = subtotal * (cupomAplicado.getPercentual() / 100.0);
-                    carrinho.setCupom(cupom);
-                } catch (Exception ex) {
-                    mv.addObject("erro", "Cupom inválido ou expirado.");
-                }
-            } else {
-                mv.addObject("cupons", cupomService.buscarTodosCuponsValidosExibiveis());
-            }
-
-            double total = subtotal - desconto;
-
-            mv.addObject("subtotal", subtotal);
-            mv.addObject("desconto", desconto);
-            mv.addObject("total", total);
-            mv.addObject("cupomAplicado", cupomAplicado);
-        } else {
+        if (itensDetalhados.isEmpty()) {
             mv.addObject("erro", "Seu carrinho está vazio.");
             mv.addObject("subtotal", 0.0);
             mv.addObject("desconto", 0.0);
             mv.addObject("total", 0.0);
+            return mv;
         }
 
-        try {
-            mv.addObject("planoMaisBarato", assinaturaService.buscarPlanoMaisBarato());
-        } catch (EntityNotFoundException ignored) {}
+        double subtotal = itensDetalhados.stream().mapToDouble(i ->
+                ((Produto)i.get("produto")).getPreco().doubleValue() * (int)i.get("quantidade")).sum();
 
-        mv.addObject("pageTitle", "Carrinho de Compras");
-        mv.addObject("cupom", cupom);
-        mv.addObject("itens", itensDetalhados);
+        double desconto = 0.0;
+        CupomDesconto cupomAplicado = null;
+
+        if (StringUtils.isNotBlank(cupom)) {
+            try {
+                cupomAplicado = cupomService.buscarCupomValidoPorCodigo(cupom);
+                desconto = subtotal * (cupomAplicado.getPercentual() / 100.0);
+                carrinho.setCupom(cupom);
+            } catch (Exception ex) {
+                mv.addObject("erro", "Cupom inválido ou expirado.");
+            }
+        } else {
+            mv.addObject("cupons", cupomService.buscarTodosCuponsValidosExibiveis());
+        }
+
+        double total = subtotal - desconto;
+
+        mv.addObject("subtotal", subtotal);
+        mv.addObject("desconto", desconto);
+        mv.addObject("total", total);
+        mv.addObject("cupomAplicado", cupomAplicado);
+
         return mv;
     }
 

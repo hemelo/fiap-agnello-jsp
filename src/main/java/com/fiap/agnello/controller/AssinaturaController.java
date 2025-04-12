@@ -2,10 +2,8 @@ package com.fiap.agnello.controller;
 
 import com.fiap.agnello.model.Assinatura;
 import com.fiap.agnello.model.AssinaturaPlano;
-import com.fiap.agnello.model.Usuario;
 import com.fiap.agnello.security.UsuarioDetails;
 import com.fiap.agnello.service.AssinaturaService;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/assinatura")
@@ -32,7 +29,7 @@ public class AssinaturaController {
 
         try {
             if (userDetails != null)
-                assinatura = assinaturaService.buscarAtivaPorUsuario(userDetails.getUsuario().getId());
+                assinatura = assinaturaService.buscarAssinaturaAtivaPorUsuario(userDetails.getUsuario().getId());
         } catch (Exception e) {
             // Log the exception if needed
         }

@@ -43,12 +43,6 @@
                     </div>
                 </c:if>
 
-                <c:if test="${pedido.valorTotal < (pedido.itens[0].precoUnitario * pedido.itens[0].quantidade * pedido.itens.size())}">
-                    <div class="text-sm text-green-700 mb-1">
-                        <strong>Desconto aplicado:</strong> R$ ${pedido.itens[0].precoUnitario * pedido.itens[0].quantidade * pedido.itens.size() - pedido.valorTotal}
-                    </div>
-                </c:if>
-
                 <div class="text-right mt-4">
                     <p class="text-lg font-semibold text-gray-800">Total: R$ ${pedido.valorTotal}</p>
                 </div>

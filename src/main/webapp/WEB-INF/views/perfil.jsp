@@ -3,11 +3,11 @@
 
 <jsp:include page="layout/head.jsp"/>
 
-<div class="min-h-screen flex flex-col justify-between">
+<div class="min-h-screen flex flex-col">
     <!-- NAVBAR -->
     <jsp:include page="layout/header.jsp"/>
 
-    <div class="mx-auto container">
+    <div class="mx-auto container grow">
 
         <section class="py-12 px-4 space-y-12">
 

@@ -34,7 +34,7 @@ public class PerfilController {
 
         try {
             if (userDetails != null)
-                assinatura = assinaturaService.buscarAtivaPorUsuario(userDetails.getUsuario().getId());
+                assinatura = assinaturaService.buscarAssinaturaAtivaPorUsuario(userDetails.getUsuario().getId());
         } catch (Exception e) {
             // Log the exception if needed
         }

@@ -106,7 +106,8 @@ public class ProdutoController {
                             @RequestParam(defaultValue = "1") int quantidade,
                             RedirectAttributes redirectAttributes) {
         carrinho.adicionarItem(produtoId, quantidade);
-        redirectAttributes.addFlashAttribute("sucesso", "Produto adicionado ao carrinho.");
-        return "redirect:/produtos";
+        redirectAttributes.addFlashAttribute("sucesso", "Produto(s) adicionado ao carrinho.");
+
+        return "redirect:/produtos/" + produtoId;
     }
 }

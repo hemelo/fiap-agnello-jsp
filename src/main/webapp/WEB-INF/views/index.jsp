@@ -29,8 +29,13 @@
                 <div class="flex flex-wrap justify-center gap-10">
                     <c:forEach var="cat" items="${categorias}">
                         <div class="flex flex-col items-center text-sm">
-                            <img src="${cat.imagemUrl}" alt="${cat.nome}" class="h-16 w-16 rounded-full shadow border" />
-                            <span class="mt-2">${cat.nome}</span>
+                            <a href="${pageContext.request.contextPath}/produtos?tipo=${cat.nome}">
+                                <img src="${cat.imagemUrl}" alt="${cat.nome}" class="h-16 w-16 rounded-full shadow border" />
+                            </a>
+
+                            <a href="${pageContext.request.contextPath}/produtos?tipo=${cat.nome}" class="mt-2">
+                               ${cat.nome}
+                            </a>
                         </div>
                     </c:forEach>
                 </div>
@@ -55,7 +60,7 @@
                         </div>
                         <div class="mt-6 flex items-center justify-between">
                             <p class="text-2xl font-bold">R$${destaque.preco}</p>
-                            <a href="${pageContext.request.contextPath}/produto/${destaque.id}" class="bg-[#581c36] text-white px-6 py-2 rounded-md text-sm hover:bg-[#45122a]">Comprar agora</a>
+                            <a href="${pageContext.request.contextPath}/produtos/${destaque.id}" class="bg-[#581c36] text-white px-6 py-2 rounded-md text-sm hover:bg-[#45122a]">Comprar agora</a>
                         </div>
                     </div>
                     <div class="md:w-1/2 text-center">
@@ -73,8 +78,12 @@
                 <div class="flex flex-wrap justify-center gap-8">
                     <c:forEach var="pais" items="${paises}">
                         <div class="flex flex-col items-center text-sm">
-                            <img src="${pageContext.request.contextPath}/img${pais.bandeiraUrl}" alt="${pais.nome}" class="w-14 h-14 rounded-full border" />
-                            <span class="mt-2">${pais.nome}</span>
+                            <a href="${pageContext.request.contextPath}/produtos?pais=${pais.nome}">
+                                <img src="${pageContext.request.contextPath}/img${pais.bandeiraUrl}" alt="${pais.nome}" class="w-14 h-14 rounded-full border" />
+                            </a>
+                            <a class="mt-2" href="${pageContext.request.contextPath}/produtos?pais=${pais.nome}">
+                                ${pais.nome}
+                            </a>
                         </div>
                     </c:forEach>
                 </div>
@@ -92,7 +101,7 @@
                             <h4 class="text-sm font-semibold mb-1">${p.nome}</h4>
                             <p class="text-sm text-gray-500 mb-1">${p.pais} • ${p.tipo}</p>
                             <p class="text-lg font-bold mb-2">R$${p.preco}</p>
-                            <a href="${pageContext.request.contextPath}/produto/${p.id}" class="w-full text-sm bg-red-900 text-white py-2 px-4 rounded hover:bg-red-800 transition">Comprar agora</a>
+                            <a href="${pageContext.request.contextPath}/produtos/${p.id}" class="w-full text-sm bg-red-900 text-white py-2 px-4 rounded hover:bg-red-800 transition">Comprar agora</a>
                         </div>
                     </c:forEach>
                 </div>
