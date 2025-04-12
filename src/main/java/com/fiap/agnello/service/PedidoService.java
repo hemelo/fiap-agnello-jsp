@@ -10,28 +10,21 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class PedidoService {
 
     private final PedidoRepository pedidoRepository;
-    private final ProdutoRepository produtoRepository;
-    private final UsuarioRepository usuarioRepository;
-    private final EnderecoRepository enderecoRepository;
-    private final ItemPedidoRepository itemPedidoRepository;
-    private final CupomDescontoRepository cupomRepository;
-
+    private final UsuarioService usuarioService;
     private final ProdutoService produtoService;
+    private final EnderecoService enderecoService;
+    private final CupomService cupomService;
 
     public Pedido criarPedido(Long usuarioId, Long enderecoId, List<ItemPedidoDto> itens, String codigoCupom) {
-        Usuario usuario = usuarioRepository.findById(usuarioId)
-                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
+        Usuario usuario = usuarioService.buscarUsuarioPorId(usuarioId);
 
-        Endereco endereco = enderecoRepository.findById(enderecoId)
-                .orElseThrow(() -> new EntityNotFoundException("Endereço inválido"));
-
+        Endereco endereco = enderecoService.buscarEnderecoPorId(enderecoId);
         Pedido pedido = new Pedido();
         pedido.setUsuario(usuario);
         pedido.setEndereco(endereco);
@@ -54,8 +47,7 @@ public class PedidoService {
         }
 
         if (codigoCupom != null) {
-            CupomDesconto cupom = cupomRepository.findByCodigoAndAtivoTrue(codigoCupom)
-                    .orElseThrow(() -> new EntityNotFoundException("Cupom inválido ou expirado"));
+            CupomDesconto cupom = cupomService.buscarCupomValidoPorCodigo(codigoCupom);
 
             if (cupom.getValidade().isBefore(LocalDate.now())) {
                 throw new IllegalArgumentException("Cupom expirado");
@@ -74,7 +66,7 @@ public class PedidoService {
         return pedidoRepository.findByUsuarioId(usuarioId);
     }
 
-    public Pedido buscarPorId(Long pedidoId) {
+    public Pedido buscarPedidoPorId(Long pedidoId) {
         return pedidoRepository.findById(pedidoId).orElseThrow(
                 () -> new EntityNotFoundException("Pedido não encontrado"));
     }

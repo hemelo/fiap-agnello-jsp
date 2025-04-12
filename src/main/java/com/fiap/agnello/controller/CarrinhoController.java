@@ -1,29 +1,21 @@
 package com.fiap.agnello.controller;
 
 import com.fiap.agnello.dto.CarrinhoDto;
-import com.fiap.agnello.model.AssinaturaPlano;
 import com.fiap.agnello.model.CupomDesconto;
 import com.fiap.agnello.model.Produto;
-import com.fiap.agnello.repository.CupomDescontoRepository;
-import com.fiap.agnello.repository.ProdutoRepository;
 import com.fiap.agnello.service.AssinaturaService;
 import com.fiap.agnello.service.CupomService;
 import com.fiap.agnello.service.ProdutoService;
 import io.micrometer.common.util.StringUtils;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/carrinho")
@@ -53,7 +45,7 @@ public class CarrinhoController {
         mv.addObject("itens", itensDetalhados);
 
         try {
-            mv.addObject("planoMaisBarato", assinaturaService.buscarPlanoMaisBarato());
+            mv.addObject("planoMaisBarato", assinaturaService.buscarPlanoDeAssinaturaMaisBarato());
         } catch (Exception ignored) {}
 
         if (itensDetalhados.isEmpty()) {

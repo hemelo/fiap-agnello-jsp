@@ -9,13 +9,11 @@ import com.fiap.agnello.service.PedidoService;
 import com.fiap.agnello.service.ProdutoService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -135,7 +133,7 @@ public class PedidoController {
     @GetMapping("/{id}/pagamento")
     public ModelAndView pagamento(@PathVariable Long id) {
 
-        Pedido pedido = pedidoService.buscarPorId(id);
+        Pedido pedido = pedidoService.buscarPedidoPorId(id);
 
         ModelAndView mv = new ModelAndView("pagamento");
         mv.addObject("pedido", pedido);
@@ -146,7 +144,7 @@ public class PedidoController {
     public ModelAndView pedidoConfirmado(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         ModelAndView mv = new ModelAndView("pedido-confirmado");
 
-        Pedido pedido = pedidoService.buscarPorId(id);
+        Pedido pedido = pedidoService.buscarPedidoPorId(id);
         mv.addObject("pedido", pedido);
         return mv;
     }

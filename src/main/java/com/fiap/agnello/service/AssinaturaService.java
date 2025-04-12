@@ -5,7 +5,6 @@ import com.fiap.agnello.model.AssinaturaPlano;
 import com.fiap.agnello.model.Usuario;
 import com.fiap.agnello.repository.AssinaturaPlanoRepository;
 import com.fiap.agnello.repository.AssinaturaRepository;
-import com.fiap.agnello.repository.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,11 +19,10 @@ public class AssinaturaService {
 
     private final AssinaturaRepository assinaturaRepository;
     private final AssinaturaPlanoRepository assinaturaPlanoRepository;
-    private final UsuarioRepository usuarioRepository;
+    private final UsuarioService usuarioService;
 
     public Assinatura criarAssinatura(Long usuarioId, Long planoId) {
-        Usuario usuario = usuarioRepository.findById(usuarioId)
-                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
+        Usuario usuario = usuarioService.buscarUsuarioPorId(usuarioId);
 
         AssinaturaPlano plano = assinaturaPlanoRepository.findById(planoId)
                 .orElseThrow(() -> new EntityNotFoundException("Plano não encontrado"));
@@ -55,11 +53,11 @@ public class AssinaturaService {
         log.info("Assinatura cancelada com sucesso: {}", assinatura);
     }
 
-    public List<AssinaturaPlano> listarPlanos() {
+    public List<AssinaturaPlano> listarPlanosDeAssinatura() {
         return assinaturaPlanoRepository.findAll();
     }
 
-    public AssinaturaPlano buscarPlanoMaisBarato() {
+    public AssinaturaPlano buscarPlanoDeAssinaturaMaisBarato() {
         return assinaturaPlanoRepository.findFirstByAtivoTrueOrderByPrecoMensalAsc()
                 .orElseThrow(() -> new EntityNotFoundException("Nenhum plano ativo encontrado"));
     }

@@ -34,7 +34,7 @@ public class AssinaturaController {
             // Log the exception if needed
         }
 
-        List<AssinaturaPlano> planos = assinaturaService.listarPlanos();
+        List<AssinaturaPlano> planos = assinaturaService.listarPlanosDeAssinatura();
 
         ModelAndView mv = new ModelAndView("assinatura");
         mv.addObject("pageTitle", "Assinatura");
