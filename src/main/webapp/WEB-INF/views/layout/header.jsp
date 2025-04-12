@@ -19,8 +19,8 @@
 
         <!-- MENU (Desktop) -->
         <nav class="hidden md:flex gap-6 text-sm text-gray-700">
+            <a href="${pageContext.request.contextPath}/home" class="hover:text-[#581c36]">Página Inicial</a>
             <a href="${pageContext.request.contextPath}/produtos" class="hover:text-[#581c36]">Vinhos</a>
-            <a href="#" class="hover:text-[#581c36]">Presentes</a>
             <a href="${pageContext.request.contextPath}/assinatura" class="hover:text-[#581c36]">Clube Agnello</a>
         </nav>
 
