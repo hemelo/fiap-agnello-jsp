@@ -38,8 +38,6 @@
 
 <jsp:include page="layout/footer.jsp" />
 
-<jsp:include page="layout/end.jsp" />
-
 <script>
     let countdown = 8;
     const timerSpan = document.getElementById("timer");
@@ -54,4 +52,4 @@
     }, 1000);
 </script>
 
-
+<jsp:include page="layout/end.jsp" />
